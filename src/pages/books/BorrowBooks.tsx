@@ -10,10 +10,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ArrowLeft, BookOpen, Calendar } from "lucide-react";
-import { useBorrowBooksMutation } from "@/redux/api/bookApi";
+import { useBorrowBooksMutation, useGetSingleBookQuery } from "@/redux/api/bookApi";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 import Loading2 from "@/components/layout/loading/loading2";
+import { Badge } from "@/components/ui/badge";
 
 const BorrowBookPage = () => {
   type Inputs = {
@@ -32,6 +33,7 @@ const BorrowBookPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const { data: books } = useGetSingleBookQuery(id);
   const [borrowBook,{isLoading}] = useBorrowBooksMutation(undefined);
 
   const onSubmit = handleSubmit(async (data: Inputs) => {
@@ -76,14 +78,14 @@ const BorrowBookPage = () => {
         </div>
 
         {/* Book Info */}
-        {/* <Card className="border-border/50 shadow-soft">
+        <Card className="border-border/50 shadow-soft">
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
-                      <span>{book.title}</span>
+                      <span>{books.data.title}</span>
                       <Badge variant="default">Available</Badge>
                     </CardTitle>
                     <CardDescription>
-                      by {book.author} • {book.genre}
+                      by {books.data.author} • {books.data.genre}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -92,17 +94,17 @@ const BorrowBookPage = () => {
                         <span className="text-sm text-muted-foreground">
                           ISBN
                         </span>
-                        <p className="font-mono">{book.isbn}</p>
+                        <p className="font-mono">{books.data.isbn}</p>
                       </div>
                       <div>
                         <span className="text-sm text-muted-foreground">
                           Available Copies
                         </span>
-                        <p className="font-semibold text-lg">{book.copies}</p>
+                        <p className="font-semibold text-lg">{books.data.copies}</p>
                       </div>
                     </div>
                   </CardContent>
-                </Card> */}
+                </Card>
 
         {/* Borrow Form */}
         <Card className="border-border/50 shadow-soft">
