@@ -10,9 +10,9 @@ import "./index.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     {/* <ThemeProvider> */}
-      <Provider store={store}>
-          <RouterProvider router={routes} />
-      </Provider>
+    <Provider store={store}>
+      <RouterProvider router={routes} />
+    </Provider>
     {/* </ThemeProvider> */}
   </StrictMode>
 );

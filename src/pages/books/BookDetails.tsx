@@ -1,18 +1,48 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, Calendar } from "lucide-react";
-import { useGetSingleBookQuery } from "@/redux/api/bookApi";
+import { ArrowLeft, BookOpen, Calendar, Edit, Trash2 } from "lucide-react";
+import {
+  useDeleteBookMutation,
+  useGetSingleBookQuery,
+} from "@/redux/api/bookApi";
 import Loading from "@/components/layout/loading/loading";
-import EditBooks from "./EditBooks";
-import BorrowBookPage from "./BorrowBooks";
+import { toast, Toaster } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const BookDetailsPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: books, isLoading } = useGetSingleBookQuery(id);
+
+  const [deleteBook] = useDeleteBookMutation(undefined);
+
+  const deleteBooks = async (id: string) => {
+    if (id) {
+      try {
+        // Call the 'editBook' trigger with the required arguments
+        const data = await deleteBook({ body: { id: id } }).unwrap();
+
+        if (data.success) {
+          toast.success("Book Added successfully");
+        }
+      } catch (err) {
+        console.error("Failed to Add the book:", err);
+      }
+    }
+  };
   if (isLoading) {
     return (
       <div className="w-fit h-full mx-auto mt-40 mb-40">
@@ -37,6 +67,7 @@ const BookDetailsPage = () => {
 
   return (
     <div className="w-fit mx-auto">
+      <Toaster />
       <div className="container py-8 max-w-4xl">
         {/* Header */}
         <div className="flex items-center space-x-4">
@@ -139,11 +170,61 @@ const BookDetailsPage = () => {
                     <span className="font-semibold">{books?.data?.copies}</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <EditBooks />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      asChild
+                      className="flex-1"
+                    >
+                      <Link to={`/editBook/${books?.data._id}`}>
+                        <Edit className="mr-1 h-3 w-3" />
+                        Edit
+                      </Link>
+                    </Button>
 
-                    {books.data.available && (
-                      <BorrowBookPage book={books?.data} />
+                    {books?.data.available && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        asChild
+                        className="flex-1"
+                      >
+                        <Link to={`/borrowBook/${books?.data._id}`}>
+                          <BookOpen className="mr-1 h-3 w-3" />
+                          Borrow
+                        </Link>
+                      </Button>
                     )}
+
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="text-destructive hover:text-destructive"
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Delete Book</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Are you sure you want to delete "{books.data.title}
+                            "? This action cannot be undone.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => deleteBooks(books.data._id)}
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </div>
               </CardContent>

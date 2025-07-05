@@ -12,11 +12,15 @@ export interface IBook {
   updatedAt: Date
 }
 
-export interface IBorrow {
+interface Borrow {
   _id : string
-  book: string
-  quantity: number
-  dueDate: Date
-  createdAt: Date
-  updatedAt: Date
+  title: string
+  isbn : number
+}
+
+export interface IBorrow {
+  book : Borrow
+  totalQuantity: number
+  createdAt?: Date
+  updatedAt?: Date
 }

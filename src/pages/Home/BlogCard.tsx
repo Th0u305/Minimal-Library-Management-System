@@ -46,7 +46,7 @@ const BlogCard = () => {
           ].map((article, index) => (
             <Card
               key={index}
-              className="group cursor-pointer border-0 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2"
+              className="p-0 group cursor-pointer border-0 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2"
             >
               <CardContent className="p-0">
                 <div

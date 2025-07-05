@@ -21,15 +21,35 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 
-import { BookOpen, Trash2, Plus, Search, Eye } from "lucide-react";
-import { useGetAllBooksQuery } from "@/redux/api/bookApi";
+import { BookOpen, Trash2, Plus, Search, Eye, Edit } from "lucide-react";
+import { useDeleteBookMutation, useGetAllBooksQuery } from "@/redux/api/bookApi";
 import Loading from "@/components/layout/loading/loading";
 import type { IBook } from "@/types/bookTypes";
-import EditBooks from "./EditBooks";
-import BorrowBookPage from "./BorrowBooks";
+import { toast, Toaster } from "sonner";
+import Pagination from "./Pagination";
 
 const AllBooks = () => {
   const { data: books, isLoading } = useGetAllBooksQuery(undefined);
+
+  const [deleteBook] = useDeleteBookMutation(undefined)
+
+
+
+  const deleteBooks = async (id:string)=>{
+
+    if (id) {
+      try {
+        // Call the 'editBook' trigger with the required arguments
+        const data = await deleteBook({ body: {id : id} }).unwrap();
+
+        if (data.success) {
+          toast.success("Book Added successfully");
+        }
+      } catch (err) {
+        console.error("Failed to Add the book:", err);
+      }
+    }
+  }
 
   if (isLoading) {
     return (
@@ -39,7 +59,8 @@ const AllBooks = () => {
     );
   }
   return (
-    <div className="container mx-auto mt-20">
+    <div className="container mx-auto mt-20 mb-20">
+      <Toaster richColors/>
       <div className="flex flex-col space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -116,11 +137,11 @@ const AllBooks = () => {
                     </div>
                   </div>
 
-                  {book.description && (
+                  <div>
                     <p className="text-sm text-muted-foreground line-clamp-2">
                       {book.description}
                     </p>
-                  )}
+                  </div>
 
                   <div className="flex gap-2 pt-2">
                     <Button
@@ -134,9 +155,31 @@ const AllBooks = () => {
                         View
                       </Link>
                     </Button>
-                    <EditBooks />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      asChild
+                      className="flex-1"
+                    >
+                      <Link to={`/editBook/${book._id}`}>
+                        <Edit className="mr-1 h-3 w-3" />
+                        Edit
+                      </Link>
+                    </Button>
 
-                    {book.available && <BorrowBookPage book={book} />}
+                    {book.available && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        asChild
+                        className="flex-1"
+                      >
+                        <Link to={`/borrowBook/${book._id}`}>
+                          <BookOpen  className="mr-1 h-3 w-3" />
+                          Borrow
+                        </Link>
+                      </Button>
+                    )}
 
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
@@ -159,7 +202,7 @@ const AllBooks = () => {
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
                           <AlertDialogAction
-                            // onClick={() => handleDelete(book.id, book.title)}
+                            onClick={() => deleteBooks(book._id)}
                             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                           >
                             Delete
@@ -174,6 +217,7 @@ const AllBooks = () => {
           </div>
         )}
       </div>
+      <Pagination/>
     </div>
   );
 };
