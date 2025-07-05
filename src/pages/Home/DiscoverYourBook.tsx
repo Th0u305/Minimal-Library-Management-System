@@ -11,7 +11,7 @@ const DiscoverYourBook = () => {
           <Badge className="mb-4 bg-purple-100 text-purple-700 border-purple-200">
             📚 Curated Collection
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
             Discover Your Next
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
               Great Read

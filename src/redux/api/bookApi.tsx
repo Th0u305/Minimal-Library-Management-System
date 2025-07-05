@@ -8,9 +8,15 @@ export const bookApi = createApi({
     tagTypes : ["allBooks"],
     endpoints : (builder) =>({
         getAllBooks : builder.query({
-            query : ()=> "/api/books"
+            query : ()=> "/api/books",
+            providesTags : ["allBooks"]
+        }),
+        getSingleBook : builder.query({
+            query : (bookId) =>({ 
+                url :  `/api/books/${bookId}`,
+            })
         })
     })
 })
 
-export const {useGetAllBooksQuery} = bookApi
+export const {useGetAllBooksQuery, useGetSingleBookQuery} = bookApi

@@ -1,5 +1,6 @@
 import App from "@/App";
-import AllBooks from "@/pages/AllBooks";
+import AllBooks from "@/pages/books/AllBooks";
+import BookDetailsPage from "@/pages/books/BookDetails";
 import Home from "@/pages/Home/home";
 
 import { createBrowserRouter } from "react-router-dom";
@@ -15,8 +16,12 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/allBooks",
-        element : <AllBooks/>
+        element : <AllBooks/>,
       },
+      {
+        path : "/allBooks/:id",
+        element : <BookDetailsPage/>
+      }
     ],
   },
   {

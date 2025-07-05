@@ -1,30 +1,48 @@
-import { Link } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 
-import { BookOpen, Edit, Trash2, Plus, Search, Eye } from 'lucide-react'
-import { useAppDispatch } from '@/redux/hooks/hook'
-import { useGetAllBooksQuery } from '@/redux/api/bookApi'
-import Loading from '@/components/layout/loading/loading'
+import { BookOpen, Trash2, Plus, Search, Eye } from "lucide-react";
+import { useGetAllBooksQuery } from "@/redux/api/bookApi";
+import Loading from "@/components/layout/loading/loading";
+import type { IBook } from "@/types/bookTypes";
+import EditBooks from "./EditBooks";
+import BorrowBookPage from "./BorrowBooks";
 
 const AllBooks = () => {
-  
-    const dispatch = useAppDispatch()
-    const {data : books, isLoading} = useGetAllBooksQuery(undefined)
+  const { data: books, isLoading } = useGetAllBooksQuery(undefined);
 
-    console.log(books);
-    
-
-    if (isLoading) {
-        return <Loading/>
-    }
+  if (isLoading) {
+    return (
+      <div className="w-fit h-full mx-auto mt-40 mb-40">
+        <Loading />
+      </div>
+    );
+  }
   return (
-    <div className="container py-8">
+    <div className="container mx-auto mt-20">
       <div className="flex flex-col space-y-6">
         {/* Header */}
-        {/* <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
               Library Collection
@@ -39,37 +57,30 @@ const AllBooks = () => {
               Add New Book
             </Link>
           </Button>
-        </div> */}
+        </div>
 
         {/* Search */}
-        {/* <div className="relative max-w-md">
+        <div className="relative max-w-md">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search books, authors, genres..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
           />
-        </div> */}
+        </div>
 
         {/* Books Grid */}
-        {/* {filteredBooks.length === 0 ? (
+        {books.data.length === 0 ? (
           <div className="text-center py-12">
             <BookOpen className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-lg font-semibold mb-2">No books found</h3>
-            <p className="text-muted-foreground mb-4">
-              {searchTerm ? 'Try adjusting your search criteria.' : 'Get started by adding your first book.'}
-            </p>
-            {!searchTerm && (
-              <Button asChild>
-                <Link to="/create-book">Add Your First Book</Link>
-              </Button>
-            )}
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredBooks.map((book) => (
-              <Card key={book.id} className="group hover:shadow-medium transition-all duration-300 border-border/50">
+            {books.data.map((book: IBook, idx: number) => (
+              <Card
+                key={idx}
+                className="group hover:shadow-medium transition-all duration-300 border-border/50"
+              >
                 <CardHeader className="pb-3">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
@@ -80,12 +91,15 @@ const AllBooks = () => {
                         by {book.author}
                       </CardDescription>
                     </div>
-                    <Badge variant={book.available ? "success" : "destructive"} className="ml-2">
-                      {book.available ? 'Available' : 'Unavailable'}
+                    <Badge
+                      variant={book.available ? "default" : "destructive"}
+                      className="ml-2"
+                    >
+                      {book.available ? "Available" : "Unavailable"}
                     </Badge>
                   </div>
                 </CardHeader>
-                
+
                 <CardContent className="space-y-4">
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
@@ -109,30 +123,28 @@ const AllBooks = () => {
                   )}
 
                   <div className="flex gap-2 pt-2">
-                    <Button variant="outline" size="sm" asChild className="flex-1">
-                      <Link to={`/books/${book.id}`}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      asChild
+                      className="flex-1"
+                    >
+                      <Link to={book._id}>
                         <Eye className="mr-1 h-3 w-3" />
                         View
                       </Link>
                     </Button>
-                    
-                    <Button variant="outline" size="sm" asChild>
-                      <Link to={`/edit-book/${book.id}`}>
-                        <Edit className="h-3 w-3" />
-                      </Link>
-                    </Button>
+                    <EditBooks />
 
-                    {book.available && (
-                      <Button variant="outline" size="sm" asChild>
-                        <Link to={`/borrow/${book.id}`}>
-                          <BookOpen className="h-3 w-3" />
-                        </Link>
-                      </Button>
-                    )}
+                    {book.available && <BorrowBookPage book={book} />}
 
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button variant="outline" size="sm" className="text-destructive hover:text-destructive">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="text-destructive hover:text-destructive"
+                        >
                           <Trash2 className="h-3 w-3" />
                         </Button>
                       </AlertDialogTrigger>
@@ -140,13 +152,14 @@ const AllBooks = () => {
                         <AlertDialogHeader>
                           <AlertDialogTitle>Delete Book</AlertDialogTitle>
                           <AlertDialogDescription>
-                            Are you sure you want to delete "{book.title}"? This action cannot be undone.
+                            Are you sure you want to delete "{book.title}"? This
+                            action cannot be undone.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
                           <AlertDialogAction
-                            onClick={() => handleDelete(book.id, book.title)}
+                            // onClick={() => handleDelete(book.id, book.title)}
                             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                           >
                             Delete
@@ -159,10 +172,10 @@ const AllBooks = () => {
               </Card>
             ))}
           </div>
-        )} */}
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AllBooks
+export default AllBooks;
