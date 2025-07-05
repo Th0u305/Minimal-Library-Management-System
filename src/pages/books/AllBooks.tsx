@@ -27,9 +27,13 @@ import Loading from "@/components/layout/loading/loading";
 import type { IBook } from "@/types/bookTypes";
 import { toast, Toaster } from "sonner";
 import Pagination from "./Pagination";
+import { useState } from "react";
 
 const AllBooks = () => {
-  const { data: books, isLoading } = useGetAllBooksQuery(undefined);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  
+  const { data: books, isLoading } = useGetAllBooksQuery(currentPage);
 
   const [deleteBook] = useDeleteBookMutation(undefined)
 
@@ -217,7 +221,7 @@ const AllBooks = () => {
           </div>
         )}
       </div>
-      <Pagination/>
+      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage}/>
     </div>
   );
 };
