@@ -39,7 +39,7 @@ export const Navbar = () => {
                 <Link
                   key={idx}
                   to={item.path}
-                  className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
+                  className="text-gray-800 hover:text-purple-600 font-medium transition-colors duration-200 relative group"
                 >
                   {item.title}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:w-full transition-all duration-300"></span>
@@ -47,13 +47,13 @@ export const Navbar = () => {
               ))}
             </nav>
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="icon" className="hover:bg-purple-50">
+              <Button variant="ghost" size="icon" className="hover:bg-purple-50 cursor-pointer">
                 <Search className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-purple-50">
+              <Button variant="ghost" size="icon" className="hover:bg-purple-50 cursor-pointer">
                 <ShoppingCart  className="w-5 h-5" />
               </Button>
-              <Button className="md:hidden" variant="ghost" size="icon">
+              <Button className="md:hidden cursor-pointer" variant="ghost" size="icon">
                 <Menu className="w-5 h-5" />
               </Button>
             </div>

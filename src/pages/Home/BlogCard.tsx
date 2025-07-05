@@ -11,10 +11,10 @@ const BlogCard = () => {
           <Badge className="mb-4 bg-green-100 text-green-700 border-green-200">
             📖 Reading Insights
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-700 mb-6">
             The ReadDown
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             Expert recommendations and reading guides to enhance your literary
             journey
           </p>
@@ -55,10 +55,10 @@ const BlogCard = () => {
                   {article.icon}
                 </div>
                 <div className="p-8">
-                  <h3 className="text-xl font-bold mb-4 text-gray-900 group-hover:text-purple-600 transition-colors">
+                  <h3 className="text-xl font-bold mb-4 text-gray-700 group-hover:text-purple-600 transition-colors">
                     {article.title}
                   </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                  <p className="text-slate-600 mb-6 leading-relaxed">
                     {article.description}
                   </p>
                   <Button

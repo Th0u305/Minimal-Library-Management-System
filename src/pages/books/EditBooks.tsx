@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useEditBookDetailsMutation } from "@/redux/api/bookApi";
 import { useNavigate, useParams } from "react-router";
 import { Toaster, toast } from "sonner";
+import Loading2 from "@/components/layout/loading/loading2";
 
 const EditBooks = () => {
   type Inputs = {
@@ -30,7 +31,7 @@ const EditBooks = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [editBook] = useEditBookDetailsMutation();
+  const [editBook, { isLoading }] = useEditBookDetailsMutation();
 
   const onSubmit = handleSubmit(async (data: Inputs) => {
     function removeEmptyValues<T extends Record<string, unknown>>(
@@ -68,17 +69,11 @@ const EditBooks = () => {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Add New Book
-          </h1>
-          <p className="text-muted-foreground">
-            Add a new book to the library collection
-          </p>
+          <h1 className="font-bold text-gray-700 text-2xl">Edit Book</h1>
+          <p className="text-muted-foreground">Update book information</p>
         </div>
       </div>
-
-      <h1>Edit Book</h1>
-      <Card className="border-border/50 shadow-soft container py-8 max-w-2xl">
+      <Card className="border-border/50 shadow-soft container py-8 max-w-2xl mt-5">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Save className="h-5 w-5 text-primary" />
@@ -147,9 +142,16 @@ const EditBooks = () => {
             </div>
 
             <div className="flex gap-4 w-fit mx-auto">
-              <Button type="submit" className="shadow-soft">
-                Submit
-              </Button>
+              {isLoading ? (
+                <Loading2 />
+              ) : (
+                <Button
+                  type="submit"
+                  className="shadow-soft hover:scale-105 active:scale-100 transition-transform duration-300"
+                >
+                  Submit
+                </Button>
+              )}
             </div>
           </form>
         </CardContent>

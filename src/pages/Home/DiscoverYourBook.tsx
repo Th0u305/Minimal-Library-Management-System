@@ -11,13 +11,13 @@ const DiscoverYourBook = () => {
           <Badge className="mb-4 bg-purple-100 text-purple-700 border-purple-200">
             📚 Curated Collection
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-700 mb-6">
             Discover Your Next
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
               Great Read
             </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             Handpicked books from bestselling authors and rising stars
           </p>
         </div>
@@ -83,10 +83,10 @@ const DiscoverYourBook = () => {
                     {book.badge}
                   </Badge>
                 </div>
-                <h3 className="font-bold text-sm mb-2 line-clamp-2 text-gray-900">
+                <h3 className="font-bold text-sm mb-2 line-clamp-2 text-gray-700">
                   {book.title}
                 </h3>
-                <p className="text-gray-600 text-xs mb-3">{book.author}</p>
+                <p className="text-slate-600 text-xs mb-3">{book.author}</p>
                 <div className="flex items-center mb-3">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -119,7 +119,7 @@ const DiscoverYourBook = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300">
+          <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full text-lg shadow-lg hover:scale-105 active:scale-100 transition-transform duration-300">
             Explore All Books
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>

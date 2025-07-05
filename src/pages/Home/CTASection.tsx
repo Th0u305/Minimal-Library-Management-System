@@ -43,9 +43,9 @@ const CTASection = () => {
             </div>
           ))}
         </div>
-        <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-12 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+        <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-lg rounded-full shadow-lg hover:scale-105 active:scale-100 transition-transform duration-300">
           Join Community
-          <ArrowRight className="ml-2 w-5 h-5" />
+          <ArrowRight className="w-5 h-5" />
         </Button>
       </div>
     </section>

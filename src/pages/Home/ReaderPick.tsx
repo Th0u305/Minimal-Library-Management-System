@@ -11,10 +11,10 @@ const ReaderPick = () => {
           <Badge className="mb-4 bg-red-100 text-red-700 border-red-200">
             ❤️ Community Favorites
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-700 mb-6">
             Picked by Readers
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             Books loved and recommended by our amazing reading community
           </p>
         </div>
@@ -89,10 +89,10 @@ const ReaderPick = () => {
                     </span>
                   </div>
                 </div>
-                <h3 className="font-bold text-sm mb-2 line-clamp-2 text-gray-900">
+                <h3 className="font-bold text-sm mb-2 line-clamp-2 text-gray-700">
                   {book.title}
                 </h3>
-                <p className="text-gray-600 text-xs mb-3">{book.author}</p>
+                <p className="text-slate-600 text-xs mb-3">{book.author}</p>
                 <div className="flex items-center mb-3">
                   {[...Array(5)].map((_, i) => (
                     <Star

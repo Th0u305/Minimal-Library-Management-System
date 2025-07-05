@@ -9,10 +9,10 @@ const BookCategory = () => {
           <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">
             🎯 Find Your Genre
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-700 mb-6">
             Choose Your Adventure
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             Explore different genres and discover books that match your
             interests
           </p>

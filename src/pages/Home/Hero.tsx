@@ -22,13 +22,13 @@ const Hero = () => {
           literary adventures that will transform your world.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ">
+          <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 text-lg rounded-full shadow-lg hover:scale-105 active:scale-100 transition-transform duration-300">
             Discover Books
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
           <Button
             variant="outline"
-            className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg rounded-full backdrop-blur-sm bg-transparent"
+            className="border-white/30 text-white px-8 py-4 text-lg rounded-full backdrop-blur-sm bg-transparent hover:scale-105 active:scale-100 transition-transform duration-300"
           >
             Browse Authors
           </Button>

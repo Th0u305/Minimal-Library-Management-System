@@ -74,8 +74,8 @@ const BookDetailsPage = () => {
           <Button variant="outline" size="icon" onClick={() => navigate(-1)}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-700">
+          <div className="flex-1 mb-5">
+            <h1 className="text-xl font-bold text-slate-700">
               {books?.data?.title}
             </h1>
             <p className="text-muted-foreground">by {books?.data?.author}</p>
@@ -86,11 +86,16 @@ const BookDetailsPage = () => {
         <div className="grid gap-6 md:grid-cols-3">
           {/* Main Info */}
           <div className="md:col-span-2">
-            <Card className="border-border/50 shadow-soft">
+            <Card className="border-border/50 shadow-soft h-full justify-evenly">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span>Book Information</span>
                   <Badge
+                    className={
+                      books.data.available
+                        ? "ml-2 bg-green-600"
+                        : "ml-2 bg-red-600"
+                    }
                     variant={books?.data?.available ? "default" : "destructive"}
                   >
                     {books?.data?.available ? "Available" : "Unavailable"}
@@ -156,6 +161,11 @@ const BookDetailsPage = () => {
                       Status
                     </span>
                     <Badge
+                      className={
+                        books.data.available
+                          ? "ml-2 bg-green-600"
+                          : "ml-2 bg-red-600"
+                      }
                       variant={
                         books?.data?.available ? "default" : "destructive"
                       }

@@ -35,7 +35,7 @@ const BorrowSummary = () => {
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div className="flex-1">
-            <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-gray-700">
               Borrow Summary
             </h1>
             <p className="text-muted-foreground">
@@ -126,7 +126,7 @@ const BorrowSummary = () => {
         {/* Quick Actions */}
         <div className="flex justify-center">
           <Button asChild className="shadow-soft">
-            <Link to="/books">
+            <Link to="/allBooks">
               <BookOpen className="mr-2 h-4 w-4" />
               Browse More Books
             </Link>

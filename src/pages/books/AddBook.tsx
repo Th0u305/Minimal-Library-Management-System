@@ -14,10 +14,11 @@ import { ArrowLeft, BookPlus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useAddBookMutation } from "@/redux/api/bookApi";
 import { Toaster, toast } from "sonner";
+import Loading2 from "@/components/layout/loading/loading2";
 
 const AddBook = () => {
   const navigate = useNavigate();
-  const [addBook] = useAddBookMutation(undefined);
+  const [addBook, {isLoading}] = useAddBookMutation(undefined);
 
   type Inputs = {
     title: string;
@@ -74,7 +75,7 @@ const AddBook = () => {
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-gray-700">
               Add New Book
             </h1>
             <p className="text-muted-foreground">
@@ -161,9 +162,16 @@ const AddBook = () => {
               </div>
 
               <div className="flex gap-4 w-fit mx-auto">
-                <Button type="submit" className="shadow-soft">
-                  Submit
-                </Button>
+                {isLoading ? (
+                  <Loading2 />
+                ) : (
+                  <Button
+                    type="submit"
+                    className="shadow-soft hover:scale-105 active:scale-100 transition-transform duration-300"
+                  >
+                    Submit
+                  </Button>
+                )}
               </div>
             </form>
           </CardContent>

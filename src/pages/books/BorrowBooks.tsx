@@ -12,12 +12,13 @@ import {
 import { ArrowLeft, BookOpen, Calendar } from "lucide-react";
 import { useBorrowBooksMutation } from "@/redux/api/bookApi";
 import { useForm } from "react-hook-form";
-import {Toaster ,toast } from "sonner";
+import { Toaster, toast } from "sonner";
+import Loading2 from "@/components/layout/loading/loading2";
 
 const BorrowBookPage = () => {
   type Inputs = {
-    quantity : number
-    dueDate : number
+    quantity: number;
+    dueDate: number;
   };
 
   const {
@@ -31,18 +32,15 @@ const BorrowBookPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [borrowBook] = useBorrowBooksMutation(undefined);
+  const [borrowBook,{isLoading}] = useBorrowBooksMutation(undefined);
 
   const onSubmit = handleSubmit(async (data: Inputs) => {
-
-
     const bookData = {
-      book : id,
-      quantity : data.quantity,
-      dueDate : data.dueDate
-    }
+      book: id,
+      quantity: data.quantity,
+      dueDate: data.dueDate,
+    };
 
-    
     if (id) {
       try {
         const data = await borrowBook({ body: bookData }).unwrap();
@@ -50,7 +48,7 @@ const BorrowBookPage = () => {
         if (data.success) {
           toast.success("Book borrowed successfully");
           reset();
-          navigate("/borrowSummary")
+          navigate("/borrowSummary");
         }
       } catch (err) {
         console.error("Failed to borrow the book:", err);
@@ -124,7 +122,7 @@ const BorrowBookPage = () => {
                   <Label htmlFor="quantity">Quantity *</Label>
                   <Input
                     id="quantity"
-                    {...register("quantity", {valueAsNumber : true})}
+                    {...register("quantity", { valueAsNumber: true })}
                     type="number"
                     min="1"
                     // max={book.copies}
@@ -163,15 +161,17 @@ const BorrowBookPage = () => {
                 </div>
               </div>
 
-
-
               <div className="w-fit mx-auto">
-                <Button
-                  type="submit"
-                  variant="default"
-                >
-                  Submit
-                </Button>
+                {isLoading ? (
+                  <Loading2 />
+                ) : (
+                  <Button
+                    type="submit"
+                    className="shadow-soft hover:scale-105 active:scale-100 transition-transform duration-300"
+                  >
+                    Submit
+                  </Button>
+                )}
               </div>
             </form>
           </CardContent>

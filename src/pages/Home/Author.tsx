@@ -9,7 +9,7 @@ const Author = () => {
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-yellow-100 text-yellow-700 border-yellow-200">🏆 Top Authors</Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-700 mb-6">Most Popular Authors</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Meet the literary masters who have captured millions of hearts worldwide
             </p>
           </div>
@@ -62,8 +62,8 @@ const Author = () => {
                       {author.followers}
                     </div>
                   </div>
-                  <h3 className="font-bold text-lg mb-2 text-gray-900">{author.name}</h3>
-                  <p className="text-gray-600 text-sm mb-3">{author.specialty}</p>
+                  <h3 className="font-bold text-lg mb-2 text-gray-700">{author.name}</h3>
+                  <p className="text-slate-600 text-sm mb-3">{author.specialty}</p>
                   <p className="text-purple-600 text-sm font-medium mb-4">{author.books}</p>
                   <Button
                     size="sm"

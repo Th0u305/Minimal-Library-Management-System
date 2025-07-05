@@ -2,7 +2,7 @@ import "./loading.css"
 
 const Loading = () => {
   return (
-    <div className="loader">
+    <div className="loader mx-auto">
       <div>
         <ul>
           <li>
